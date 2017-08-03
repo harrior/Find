@@ -66,12 +66,13 @@ var
 begin
 FindList := TStringList.Create;
 FindStr := AnsiUpperCase(FindEdit.Text);
+
 for i := 0 to filelist.Count-1 do
   begin
     if pos(FindStr,AnsiUpperCase(filelist[i]))<>0 then
       FindList.Add(filelist[i])
   end;
-  memo1.Lines.Add('Поиск завершен.');
+
 ResultGrid.RowCount:=FindList.Count;
 for i := 0 to FindList.Count-1 do
   ResultGrid.Cells[0,i]:=FindList[i];
@@ -99,7 +100,8 @@ begin
   drives := TStringList.Create;
   for c := 'A' to 'Z' do
     begin
-    if (GetDriveType(PChar(c+':\')) <> 1) and (GetDriveType(PChar(c+':\')) <> 0) then
+    //только жесткие (3) и сетевые(4) диски
+    if (GetDriveType(PChar(c+':\')) = 3) or (GetDriveType(PChar(c+':\')) = 4) then
       begin
       drives.Add(c+':');
       memo1.Lines.Add(c);
@@ -111,13 +113,17 @@ end;
 procedure TForm1.RefreshButtonClick(Sender: TObject);
 var
 I: Integer;
+//t:longint;
 begin
 filelist.Clear;
+//t := GetTickCount();
 for I := 0 to drives.Count-1 do
   begin
+  memo1.Lines.Add('Индексация диска '+ drives[i]);
   RefreshDirList(drives[i],filelist);
-  memo1.Lines.Add(inttostr(filelist.Count));
   end;
+Memo1.Lines.Add('Индексация завершена, найдено '+inttostr(filelist.Count)+' файлов')
+  //showmessage(floattostr((filelist.Count)/(GetTickCount() - t)));
 //filelist.SaveToFile('E:\test.txt');
 end;
 

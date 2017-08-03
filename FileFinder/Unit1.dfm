@@ -22,7 +22,7 @@ object Form1: TForm1
     Height = 326
     ColCount = 1
     Ctl3D = True
-    DefaultColWidth = 500
+    DefaultColWidth = 10000
     FixedCols = 0
     RowCount = 1
     FixedRows = 0
@@ -53,7 +53,7 @@ object Form1: TForm1
       Width = 281
       Height = 21
       TabOrder = 0
-      Text = 'biblio.nsi'
+      Text = 'cmd.exe'
       OnKeyPress = FindEditKeyPress
     end
     object FindButton: TButton
@@ -78,8 +78,6 @@ object Form1: TForm1
       Top = 40
       Width = 177
       Height = 321
-      Lines.Strings = (
-        'Memo1')
       TabOrder = 0
     end
     object RefreshButton: TButton
